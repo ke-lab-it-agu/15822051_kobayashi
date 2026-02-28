@@ -5,6 +5,7 @@ https://dumps.wikimedia.org/wikidatawiki/entities/
 からlatest-truthy.nt.bz2をダウンロードする。次に、wikiextract_1.pyにより、QID、label、discription、aliasが一行に１セットずつ書かれたjsonlファイルを生成する。そして、曖昧回避のための不必要なQIDを取り除くためにclean_wikiextract.pyを動かす。QIDの並び順がランダムなので、sort_wikidata.pyで昇順にソート(下四桁は無視)する。一つのQIDに対応する、分類ラベル(p31)も付与するための準備をする。まず、pull_p31_from_truthy.pyを動かして、QID一つに対応するp31のリストを入手する。また、exist_qid_label_check.pyを動かして、存在するQID→ラベルのリストを作る。p31のラベルリストを作るために、get_only_p31_label.pyを動かす。そして、分類ラベルを昇順にソートしたリストにくっつけるために、attach_p31_to_sorted.pyを動かす。そして、p31とaliasを含んだ完全なファイルを作成するためにmarge_p31_alias.pyを動かす。QID１０万以下(時間の関係上すべては不可だった)で１０個ぐらいlabelが欠損している部分があったので、repair_en_label.pyを動かして修正する。これでベクトル化に必要なファイルが完成した。
 
 最後に、vector_alias_p31.pyを動かしてベクトル化を行う。テキスト埋め込みモデルは"qwen3-embedding:0.6b"を使用した。ollama pull qwen3-embedding:0.6bというコマンドでインストールを事前に行う。
+"wikidata_embeddings_06b_ali_classed.dat"というファイルが生成される。これがベクトルデータベースである。
 
 LLMに渡す、QID→分類ラベルが分かるデータベース(sqllite)をsqllite_load_db.pyを実行して、DBを作成しておく。DBはパイプラインの実行で使用する。
 
