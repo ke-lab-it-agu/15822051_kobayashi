@@ -9,4 +9,10 @@ https://dumps.wikimedia.org/wikidatawiki/entities/
 
 LLMに渡す、QID→分類ラベルが分かるデータベース(sqllite)をsqllite_load_db.pyを実行して、DBを作成しておく。DBはパイプラインの実行で使用する。
 
-.jsonlファイルのまま動かすと遅いのでbuild_npy.pyを実行することで、WikidataのIDとラベルを、高速ロードできる形式に変換している。
+wikidata_qids_06b_ali_classed.jsonlとwikidata_labels_06b_ali_classed.jsonlの二つの
+.jsonlファイルのまま動かすと遅い。build_npy.pyを実行することで、WikidataのIDとラベルを、高速ロードできる形式に変換している。
+
+
+ベクトルデータベースを作り終わったら、エンティティリンキングのシステムを実行していく。初めて動かす時、ivf.indexファイルが自動で生成される。このファイルは、ベクトルデータベース内の検索を効率よくするためのファイルだ。
+
+webqsp,lcquad2,simplequestionsの３つのデータセットで実験ができる。それぞれのフォルダ内に存在しているvalue_fファイルはF1値を計算するためのファイルだ。
