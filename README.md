@@ -6,4 +6,6 @@ https://dumps.wikimedia.org/wikidatawiki/entities/
 
 最後に、vector_alias_p31.pyを動かしてベクトル化を行う。テキスト埋め込みモデルは"qwen3-embedding:0.6b"を使用した。ollama pull qwen3-embedding:0.6bというコマンドでインストールを事前に行う。
 
-LLMに渡す、QID→分類ラベルが分かるデータベース(sqllite)をsqllite_load_db.pyを実行して、DBを作成しておく。DBはパイプライン実行で使用する。
+LLMに渡す、QID→分類ラベルが分かるデータベース(sqllite)をsqllite_load_db.pyを実行して、DBを作成しておく。DBはパイプラインの実行で使用する。
+
+.jsonlファイルのまま動かすと遅いのでbuild_npy.pyを実行することで、WikidataのIDとラベルを、高速ロードできる形式に変換している。
